@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <!-- <meta http-equiv="refresh" content="60" /> -->
+    <title>Animal Crossing: New Horizons Collectables</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header text-center h1">Animal Crossing: New Horizons</header>
+    <div id="content">
+        <table id="data" class="table table-striped table-bordered table-sm table-responsibe-sm table-hover">
+            <thead>
+                <tr>
+                    <th class="th" id="th-name">Name</th>
+                    <th class="th" id="th-price">Price</th>
+                    <th class="th" id="th-type">Type</th>
+                    <th class="th" id="th-location">Location</th>
+                    <th class="th" id="th-months" data-sortable="false">Months</th>
+                    <th class="th" id="th-hours" data-sortable="false">Hours</th>
+                </tr>
+            </thead>
+            <tfoot>
+
+            </tfoot>
+            <tbody>
+                {% for c in data: %}
+                    <tr class="tr" id="tr-{{c.name}}">
+                        <td class="td name" id="td-{{c.id}}-name">{{c.display_name}}</td>
+                        <td class="td price" id="td-{{c.id}}-price">${{c.price}}</td>
+                        <td class="td type" id="td-{{c.id}}-type">{{c.type | title}}</td>
+                        <td class="td location" id="td-{{c.id}}-location">{{c.location | title}}</td>
+                        {% if c.start_month > -1 %}
+                            <td class="td months" id="td-{{c.id}}-months">{{ month[c.start_month | int] }} - {{ month[c.end_month | int]}} </td>
+                        {% else %}
+                            <td class="td months" id="td-{{c.id}}-months"></td>
+                        {% endif %}
+                        {% if c.start_hour > -1 %}
+                            <td class="td hours" id="td-{{c.id}}-hours">{{c.start_hour}} - {{c.end_hour}}</td>
+                        {% else %}
+                            <td class="td hours" id="td-{{c.id}}-hours"></td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <footer class="footer">
+        <div class="text-center">
+            <a target="_blank" href="https://github.com/sillypears/acnh-data">
+                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" height="32px" width="32px">
+            </a>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src={{ url_for('static',filename='js/home.js') }}></script>
+</body>
+</html>
